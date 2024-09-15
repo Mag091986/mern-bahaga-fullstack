@@ -49,7 +49,7 @@ export default function Header() {
         <ul className='flex flex-col bg-orange-600 p-4 sm:hidden'>
           <Link to='/' onClick={toggleMenu}><li className='text-white hover:underline'>Inicio</li></Link>
           <Link to='/about' onClick={toggleMenu}><li className='text-white hover:underline'>Nosotros</li></Link>
-          <Link to='/sign-in' onClick={toggleMenu}><li className='text-white hover:underline'>Inicia sesión</li></Link>
+          <Link to='/sign-in' onClick={toggleMenu}><li className='text-white hover:underline'>Iniciar sesión</li></Link>
         </ul>
       )}
     </header>
