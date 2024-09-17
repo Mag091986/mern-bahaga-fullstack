@@ -18,10 +18,9 @@ export default function SignUp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setError(null);  // Reset error on new submission
+    setError(null);  
     try {
-      console.log('Form data:', formData);  // Log form data to check
-
+      console.log('Form data:', formData); 
       const res = await fetch('/api/auth/signup', {
         method: 'POST',
         headers: {
@@ -39,14 +38,13 @@ export default function SignUp() {
       console.log(data);
       navigate('/sign-in');
 
-      // Redirect or show success message
-      // You could add navigation to a different page or show a success message here
+
 
     } catch (err) {
       console.error('Error:', err.message);
       setError(err.message);
     } finally {
-      setLoading(false);  // Always set loading to false when done
+      setLoading(false); 
     }
   };
 
