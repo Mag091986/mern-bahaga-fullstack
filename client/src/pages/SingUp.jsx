@@ -20,7 +20,7 @@ export default function SignUp() {
     setLoading(true);
     setError(null);  
     try {
-      console.log('Form data:', formData); 
+
       const res = await fetch('/api/auth/signup', {
         method: 'POST',
         headers: {
@@ -51,7 +51,7 @@ export default function SignUp() {
   return (
     <div className="flex h-[calc(100vh-100px)] justify-center items-center gap-6">
       <div className="flex flex-col">
-        <h1 className="text-3xl text-center font-semibold my-7">Registro</h1>
+        <h1 className="text-3xl text-center font-semibold my-7">Registro de usuario</h1>
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <input type="text" placeholder="Nombre de usuario" className="border p-3 rounded-lg" id="username" onChange={handleChange} />
           <input type="email" placeholder="Correo electrónico" className="border p-3 rounded-lg" id="email" onChange={handleChange} />
