@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import image from "../assets/img/nuevouser.jpg";
+import Oauth from "../components/Oauth";
 
 export default function SignUp() {
   const [formData, setFormData] = useState({});
@@ -56,9 +57,10 @@ export default function SignUp() {
           <input type="text" placeholder="Nombre de usuario" className="border p-3 rounded-lg" id="username" onChange={handleChange} />
           <input type="email" placeholder="Correo electrónico" className="border p-3 rounded-lg" id="email" onChange={handleChange} />
           <input type="password" placeholder="Contraseña" className="border p-3 rounded-lg" id="password" onChange={handleChange} />
-          <button disabled={loading} className="bg-sky-500 border text-white p-3 rounded-lg hover:bg-orange-600 disabled:opacity-50">
+          <button disabled={loading} className="bg-sky-500 border uppercase text-white p-3 rounded-lg hover:bg-orange-600 disabled:opacity-50">
             {loading ? 'Loading...' : 'Registrar'}
           </button>
+          <Oauth/>
         </form>
         <div className="flex gap-2 mt-5">
           <p>¿Tiene una cuenta?</p>
