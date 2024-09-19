@@ -41,7 +41,7 @@ export default function SignIn() {
   };
 
   return (
-    <div className="flex h-[calc(100vh-100px)] justify-center items-center gap-6">
+    <div className="flex h-[calc(100vh-100px)] justify-center items-center gap-6 p-3">
       <div className="flex flex-col">
         <h1 className="text-3xl text-center font-semibold my-7">Iniciar sesión</h1>
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
