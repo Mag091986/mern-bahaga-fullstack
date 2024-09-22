@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { FaBars, FaSearch } from 'react-icons/fa';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import logo from '../assets/logo.svg';
 
 export default function Header() {
+  const { currentUser } = useSelector((state) => state.user);
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -15,7 +17,7 @@ export default function Header() {
       <div className='flex justify-between items-center max-w-6xl mx-auto p-3'>
         {/* Logo Section */}
         <Link to='/' className='flex justify-between items-center'>
-          <img src={logo} alt="Logo" className="w-10 mr-4" />
+          <img src={logo} alt='Logo' className='w-10 mr-4' />
           <h1 className='font-bold text-sm sm:text-xl flex flex-wrap'>
             <span className='text-white'>Bahaga</span>
           </h1>
@@ -32,24 +34,53 @@ export default function Header() {
         </form>
 
         {/* Hamburger Icon for Mobile */}
-        <button className="sm:hidden text-white" onClick={toggleMenu}>
-          <FaBars className="w-6 h-6" />
+        <button className='sm:hidden text-white' onClick={toggleMenu}>
+          <FaBars className='w-6 h-6' />
         </button>
 
         {/* Navigation Links for Desktop */}
-        <ul className='hidden sm:flex gap-4'>
+        <ul className='hidden sm:flex gap-4 items-center'>
           <Link to='/'><li className='text-white hover:underline'>Inicio</li></Link>
           <Link to='/about'><li className='text-white hover:underline'>Nosotros</li></Link>
-          <Link to='/sign-in'><li className='text-white hover:underline'>Inicia sesión</li></Link>
+          <Link to='/profile'>
+            {currentUser ? (
+              <li>
+                <img
+                  src={currentUser.avatar}
+                  alt= 'Profile'
+                  className='w-8 h-8 rounded-full' // Added some styling for size and shape
+                />
+              </li>
+            ) : (
+              <li className='text-white hover:underline'>Inicia sesión</li>
+            )}
+          </Link>
         </ul>
       </div>
 
       {/* Mobile Menu (visible when toggled) */}
       {isOpen && (
         <ul className='flex flex-col bg-orange-600 p-4 sm:hidden'>
-          <Link to='/' onClick={toggleMenu}><li className='text-white hover:underline'>Inicio</li></Link>
-          <Link to='/about' onClick={toggleMenu}><li className='text-white hover:underline'>Nosotros</li></Link>
-          <Link to='/sign-in' onClick={toggleMenu}><li className='text-white hover:underline'>Iniciar sesión</li></Link>
+          <Link to='/' onClick={toggleMenu}>
+            <li className='text-white hover:underline'>Inicio</li>
+          </Link>
+          <Link to='/about' onClick={toggleMenu}>
+            <li className='text-white hover:underline'>Nosotros</li>
+          </Link>
+          <Link to='/profile' onClick={toggleMenu}>
+            {currentUser ? (
+              <li className='flex items-center'>
+                <img
+                  src={currentUser.avatar}
+                  alt= 'Profile'
+                  className='w-8 h-8 rounded-full' // Consistent styling for mobile view
+                />
+                <span className='ml-2 text-white'>{currentUser.name}</span>
+              </li>
+            ) : (
+              <li className='text-white hover:underline'>Inicia sesión</li>
+            )}
+          </Link>
         </ul>
       )}
     </header>
