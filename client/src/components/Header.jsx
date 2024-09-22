@@ -47,7 +47,7 @@ export default function Header() {
               <li>
                 <img
                   src={currentUser.avatar}
-                  alt= 'Perfil de usuario'
+                  alt= 'Foto de perfil'
                   className='w-8 h-8 rounded-full' //Estilo de avatar redondo
                 />
               </li>
@@ -72,7 +72,7 @@ export default function Header() {
               <li className='flex items-center'>
                 <img
                   src={currentUser.avatar}
-                  alt= 'Perfil de usuario'
+                  alt= 'Foto de perfil'
                   className='w-8 h-8 rounded-full' // Version para mobile
                 />
                 <span className='ml-2 text-white'>{currentUser.name}</span>
