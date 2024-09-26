@@ -1,6 +1,6 @@
 import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
-import express from "express";
+import express from 'express';
 import mongoose from "mongoose";
 import authRouter from './routes/auth.route.js';
 import userRouter from './routes/user.route.js';

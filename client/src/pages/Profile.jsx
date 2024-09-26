@@ -6,11 +6,13 @@ import { updateUserFailure, updateUserStart, updateUserSuccess } from '../redux/
 
 export default function Profile() {
   const fileRef = useRef(null);
-  const { currentUser } = useSelector((state) => state.user);
+  const { currentUser, loading, error } = useSelector((state) => state.user);
   const [file, setFile] = useState(undefined);
   const [formData, setFormData] = useState({});
   const [filePerc, setFilePerc] = useState(0);
   const [fileUploadError, setFileUploadError] = useState(false);
+  const [updateSuccess, setUpdateSuccess] = useState(false)
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -93,13 +95,15 @@ export default function Profile() {
         </p>
         <input type="text" placeholder="Nombre de Usuario" defaultValue={currentUser.username} id="username" className="border p-3 rounded-lg" onChange={handleChange} />
         <input type="email" placeholder="Correo electrónico" defaultValue={currentUser.email} id="email" className="border p-3 rounded-lg" onChange={handleChange} />
-        <input type="text" placeholder="Contraseña" id="password" className="border p-3 rounded-lg" onChange={handleChange} />
-        <button className="bg-sky-500 border uppercase text-white p-3 rounded-lg hover:bg-orange-600 disabled:opacity-50">Actualizar</button>
+        <input type="password" placeholder="Contraseña" id="password" className="border p-3 rounded-lg" onChange={handleChange} />
+        <button disabled={loading} className="bg-sky-500 border uppercase text-white p-3 rounded-lg hover:bg-orange-600 disabled:opacity-50">{loading ? 'Cargando...' : 'Actualizar'}</button>
       </form>
       <div className="flex justify-between mt-4">
         <span className="text-red-600 cursor-pointer">Eliminar cuenta</span>
         <span className="text-red-600 cursor-pointer">Cerrar sesión</span>
       </div>
+      <p className='text-red-700 mt-5' > {error ? error : ''} </p>
+      <p className='text-green-600 mt-5'> {updateSuccess ? 'Actualización Completa' : ''} </p>
     </div>
   )
 }
