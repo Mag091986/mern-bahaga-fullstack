@@ -1,6 +1,7 @@
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage';
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from 'react-router-dom';
 import { app } from '../firebase';
 import { deleteUserFailure, deleteUserStart, deleteUserSuccess, signOutUserFailure, signOutUserStart, signOutUserSuccess, updateUserFailure, updateUserStart, updateUserSuccess } from '../redux/user/userSlice';
 
@@ -131,7 +132,8 @@ export default function Profile() {
         <input type="text" placeholder="Nombre de Usuario" defaultValue={currentUser.username} id="username" className="border p-3 rounded-lg" onChange={handleChange} />
         <input type="email" placeholder="Correo electrónico" defaultValue={currentUser.email} id="email" className="border p-3 rounded-lg" onChange={handleChange} />
         <input type="password" placeholder="Contraseña" id="password" className="border p-3 rounded-lg" onChange={handleChange} />
-        <button disabled={loading} className="bg-sky-500 border uppercase text-white p-3 rounded-lg hover:bg-orange-600 disabled:opacity-50">{loading ? 'Cargando...' : 'Actualizar'}</button>
+        <button disabled={loading} className="bg-slate-500 border uppercase text-white p-3 rounded-lg hover:bg-orange-600 disabled:opacity-50">{loading ? 'Cargando...' : 'Actualizar'}</button>
+        <Link className='bg-blue-900 border uppercase text-white p-3 rounded-lg text-center hover:opacity-75' to={'/create-listing'}>Publicar Servicio</Link>
       </form>
       <div className="flex justify-between mt-4">
         <span onClick={handleDeleteUser} className="text-red-600 cursor-pointer">Eliminar cuenta</span>

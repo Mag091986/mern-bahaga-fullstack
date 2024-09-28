@@ -58,20 +58,20 @@ const listingSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
-        // Localización para Google Maps
-        location: {
-            latitude: {
-                type: Number,
-                required: true,
-            },
-            longitude: {
-                type: Number,
-                required: true,
-            },
-        }
+        // Ubicación para Google Maps
+        // location: {
+        //     latitude: {
+        //         type: Number,
+        //         required: true,
+        //     },
+        //     longitude: {
+        //         type: Number,
+        //         required: true,
+        //     },
+        // }
     },
     {
-        timestamps: true // Incorporar la hora
+        timestamps: true // Hora de creación y edición
     }
 );
 
