@@ -7,16 +7,29 @@ export default function CreateListing() {
   const [formData, setFormData] = useState({
     imageUrls: [],
   });
+  const [imageUloadError, setImageUploadError] = useState(false);
+  const [uploading, setUploading] = useState(false);
   console.log(formData);
   const handleImageSubmit = (e) => {
-    if (files.length > 0 && files.length < 7) {
+    if (files.length > 0 && files.length + formData.imageUrls.length < 7) {
+      setUploading(true);
+      setImageUploadError(false);
       const promises = [];
+
       for (let i = 0; i < files.length; i++) {
         promises.push(storeImage(files[i]));
       }
       Promise.all(promises).then((urls) => {
-        setFormData({ ...formData, imageUrls: formData.imageUrls.concat(urls) });
+        setFormData({ ...formData, imageUrls: formData.imageUrls.concat(urls)});
+        setImageUploadError(false);
+        setUploading(false);        
+      }).catch((err) => {
+        setImageUploadError('Carga de imagen fallida (Máximo 2 Mb por imagen)');
+        setUploading(false);
       });
+    }else{
+      setImageUploadError('Puedes subir hasta 6 imágenes por publicación');
+      setUploading(false);
     }
   };
   const storeImage = async (file) => {
@@ -39,12 +52,19 @@ export default function CreateListing() {
           getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
             resolve(downloadURL);
           });
-        })
+        });
     });
+  };
+
+  const handleRemoveImage = (index) => {
+setFormData({
+  ...formData,
+  imageUrls: formData.imageUrls.filter((_, i) => i !== index),
+})
   }
   return (
     <main className='p-3 max-w-4xl mx-auto'>
-      <h1 className='text-3xl font-semibold text-center my-7'>Crear Servicio</h1>
+      <h1 className='text-3xl font-semibold text-center my-7'>Crear salón</h1>
       <form className='flex flex-col sm:flex-row gap-4'>
         <div className='flex flex-col gap-4 flex-1'>
           <input type="text" placeholder='Nombre del Salón' className='border p-3 rounded-lg' id='name' maxLength='62' minLength='10' required />
@@ -95,9 +115,18 @@ export default function CreateListing() {
           </p>
           <div className='flex gap-4'>
             <input onChange={(e) => setfiles(e.target.files)} className='p-3 border border-gray-300 rounded w-full' type="file" id='images' accept='image/*' multiple />
-            <button type='button' onClick={handleImageSubmit} className='p-3 text-green-700 border border-green-700 rounded uppercase hover:shadow-lg disabled:opacity-80'>Cargar</button>
+            <button type='button' disabled={uploading} onClick={handleImageSubmit} className='p-3 text-green-700 border border-green-700 rounded uppercase hover:shadow-lg disabled:opacity-80'>{uploading ? 'Cargando...' : 'Cargar'}</button>
           </div>
-          <button className='p-3 bg-blue-900 text-white rounded-lg uppercase hover:opacity-80 disabled:opacity-50'>Publicar Servicio</button>
+        <p className='text-red-700 text-sm'>{imageUloadError && imageUloadError}</p>
+        {
+          formData.imageUrls.length > 0 && formData.imageUrls.map((url, index) => (
+            <div key={url} className='flex justify-between p-4 border items-center'>
+              <img src={url} alt="Lista de imágenes" className='w-20 h-20 object-contain rounded-lg' />
+              <button type='button' onClick={()=>handleRemoveImage(index)} className='p-3 text-red-700 rounded-lg uppercase hover:opacity-60'>Borrar</button>
+            </div>
+          ))
+        }
+          <button className='p-3 bg-blue-900 text-white rounded-lg uppercase hover:opacity-80 disabled:opacity-50'>Publicar Salón</button>
         </div>
       </form>
     </main>
