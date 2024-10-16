@@ -18,7 +18,7 @@ export default function Profile() {
 
   useEffect(() => {
     if (file) {
-      handleFileUpload();
+      handleFileUpload( );
     }
   }, [file]);
 
