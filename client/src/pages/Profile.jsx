@@ -170,6 +170,7 @@ export default function Profile() {
             <Link className='text-slate-700 font-semibold flex-1 hover:underline truncate' to={`/listing/${listing._id}`}>
             <p>{listing.name}</p>
             </Link>
+            
             <div className='flex flex-col items-center'>
   <button className='text-red-700 uppercase'>Borrar</button>
   <button className='text-green-700 uppercase'>Editar</button>
