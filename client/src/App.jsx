@@ -5,6 +5,7 @@ import './index.css';
 import About from './pages/About';
 import CreateListing from './pages/CreateListing';
 import Home from "./pages/Home";
+import Listing from './pages/Listing';
 import Profile from './pages/Profile';
 import SignIn from './pages/SignIn';
 import SingUp from './pages/SingUp';
@@ -19,6 +20,7 @@ export default function App() {
         <Route path='/sign-in' element={<SignIn />}></Route>
         <Route path='/sign-up' element={<SingUp />}></Route>
         <Route path='/about' element={<About />}></Route>
+        <Route path='/listing/:listingId' element={<Listing />}></Route>
         <Route element={<PrivateRoute />}>
           <Route path='/profile' element={<Profile />}></Route>
           <Route path='/create-listing' element={<CreateListing />}></Route>
