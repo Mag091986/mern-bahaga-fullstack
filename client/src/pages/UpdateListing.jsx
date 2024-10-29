@@ -6,7 +6,7 @@ import { app } from '../firebase';
 
 export default function CreateListing() {
     const { currentUser } = useSelector(state => state.user);
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     const params = useParams();
     const [files, setfiles] = useState([]);
     const [formData, setFormData] = useState({
@@ -185,17 +185,21 @@ export default function CreateListing() {
                             <p>Baños</p>
                         </div>
                         <div className='flex items-center gap-2'>
-                            <input type="number" id='regularPrice' min='100000' max='50000000' required className='p-3 border border-gray-300 rounded-lg' onChange={handleChange} value={formData.regularPrice} />
-                            <div className='flex flex-col items-center'>
-                                <p>Precio regular</p>
-                            </div>
-                        </div>
-                        {formData.offer && (<div className='flex items-center gap-2'>
-                            <input type="number" id='discountPrice' min='0' max='50000000' required className='p-3 border border-gray-300 rounded-lg' onChange={handleChange} value={formData.discountPrice} />
-                            <div className='flex flex-col items-center'>
-                                <p>Precio con descuento</p>
-                            </div>
-                        </div>)}
+              <input type="number" id='regularPrice' min='100000' max='50000000' required className='p-3 border border-gray-300 rounded-lg' onChange={handleChange} value={formData.regularPrice} />
+              <div className='flex flex-col items-center'>
+                <p>Precio regular</p>
+                {formData.type === 'hour' && (
+                  <span className='text-xs'>(hora)</span>)}
+              </div>
+            </div>
+            {formData.offer && (<div className='flex items-center gap-2'>
+              <input type="number" id='discountPrice' min='0' max='50000000' required className='p-3 border border-gray-300 rounded-lg' onChange={handleChange} value={formData.discountPrice} />
+              <div className='flex flex-col items-center'>
+                <p>Precio con descuento</p>
+                {formData.type === 'hour' && (
+                  <span className='text-xs'>(hora)</span>)}
+              </div>
+            </div>)}
 
                     </div>
                 </div>
