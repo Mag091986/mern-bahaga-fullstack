@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { app } from '../firebase';
 
 export default function CreateListing() {
-  const {currentUser} = useSelector(state => state.user);
+  const { currentUser } = useSelector(state => state.user);
   const navigate = useNavigate()
   const [files, setfiles] = useState([]);
   const [formData, setFormData] = useState({
@@ -39,14 +39,14 @@ export default function CreateListing() {
         promises.push(storeImage(files[i]));
       }
       Promise.all(promises).then((urls) => {
-        setFormData({ ...formData, imageUrls: formData.imageUrls.concat(urls)});
+        setFormData({ ...formData, imageUrls: formData.imageUrls.concat(urls) });
         setImageUploadError(false);
-        setUploading(false);        
+        setUploading(false);
       }).catch((err) => {
         setImageUploadError('Carga de imagen fallida (Máximo 2 Mb por imagen)');
         setUploading(false);
       });
-    }else{
+    } else {
       setImageUploadError('Puedes subir hasta 6 imágenes por publicación');
       setUploading(false);
     }
@@ -76,28 +76,28 @@ export default function CreateListing() {
   };
 
   const handleRemoveImage = (index) => {
-setFormData({
-  ...formData,
-  imageUrls: formData.imageUrls.filter((_, i) => i !== index),
-});
+    setFormData({
+      ...formData,
+      imageUrls: formData.imageUrls.filter((_, i) => i !== index),
+    });
   };
 
   const handleChange = (e) => {
-    if(e.target.id === 'day' || e.target.id === 'hour'){
+    if (e.target.id === 'day' || e.target.id === 'hour') {
       setFormData({
         ...formData,
         type: e.target.id
       })
     }
 
-    if(e.target.id === 'parking' || e.target.id === 'catering' || e.target.id === 'decoration' || e.target.id === 'offer'){
+    if (e.target.id === 'parking' || e.target.id === 'catering' || e.target.id === 'decoration' || e.target.id === 'offer') {
       setFormData({
         ...formData,
         [e.target.id]: e.target.checked
       })
     }
 
-    if(e.target.type === 'number' || e.target.type === 'text' || e.target.type === 'textarea'){
+    if (e.target.type === 'number' || e.target.type === 'text' || e.target.type === 'textarea') {
       setFormData({
         ...formData,
         [e.target.id]: e.target.value,
@@ -108,9 +108,9 @@ setFormData({
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      if(formData.imageUrls.length < 1) return setError('Debes subir al menos una imagen')
-      if(+formData.regularPrice < +formData.discountPrice) return setError('El precio de descuento debe ser menor al precio regular')
-      
+      if (formData.imageUrls.length < 1) return setError('Debes subir al menos una imagen')
+      if (+formData.regularPrice < +formData.discountPrice) return setError('El precio de descuento debe ser menor al precio regular')
+
       setLoading(true);
       setError(false);
       const res = await fetch('/api/listing/create', {
@@ -125,7 +125,7 @@ setFormData({
       });
       const data = await res.json();
       setLoading(false);
-      if (data.success === false){
+      if (data.success === false) {
         setError(data.message);
       }
       navigate(`/listing/${data._id}`)
@@ -144,46 +144,48 @@ setFormData({
           <input type="text" placeholder='Dirección' className='border p-3 rounded-lg' id='address' required onChange={handleChange} value={formData.address} />
           <div className='flex gap-6 flex-wrap'>
             <div className='flex gap-2'>
-              <input type="checkbox" id='day' className='w-5' onChange={handleChange} checked={formData.type === 'day'}  /> <span>Por días</span>
-              <input type="checkbox" id='hour' className='w-5' onChange={handleChange} checked={formData.type === 'hour'}  /> <span>Por horas</span>
+              <input type="checkbox" id='day' className='w-5' onChange={handleChange} checked={formData.type === 'day'} /> <span>Por días</span>
+              <input type="checkbox" id='hour' className='w-5' onChange={handleChange} checked={formData.type === 'hour'} /> <span>Por horas</span>
             </div>
             <div className='flex gap-2'>
-              <input type="checkbox" id='parking' className='w-5' onChange={handleChange} checked={formData.parking}/> <span>Parqueadero</span>
+              <input type="checkbox" id='parking' className='w-5' onChange={handleChange} checked={formData.parking} /> <span>Parqueadero</span>
             </div>
             <div className='flex gap-2'>
-              <input type="checkbox" id='catering' className='w-5' onChange={handleChange} checked={formData.catering}/> <span>Cáterin</span>
+              <input type="checkbox" id='catering' className='w-5' onChange={handleChange} checked={formData.catering} /> <span>Cáterin</span>
             </div>
             <div className='flex gap-2'>
-              <input type="checkbox" id='decoration' className='w-5' onChange={handleChange} checked={formData.decoration}/> <span>Decoración</span>
+              <input type="checkbox" id='decoration' className='w-5' onChange={handleChange} checked={formData.decoration} /> <span>Decoración</span>
             </div>
             <div className='flex gap-2'>
-              <input type="checkbox" id='offer' className='w-5' onChange={handleChange} checked={formData.offer}/> <span>Descuento</span>
+              <input type="checkbox" id='offer' className='w-5' onChange={handleChange} checked={formData.offer} /> <span>Descuento</span>
             </div>
           </div>
           <div className='flex flex-wrap gap-6'>
             <div className='flex items-center gap-2'>
-              <input type="number" id='guests' min='10' max='500' required className='p-3 border border-gray-300 rounded-lg' onChange={handleChange} value={formData.guests}/>
+              <input type="number" id='guests' min='10' max='500' required className='p-3 border border-gray-300 rounded-lg' onChange={handleChange} value={formData.guests} />
               <p>Invitados</p>
             </div>
             <div className='flex items-center gap-2'>
-              <input type="number" id='bathrooms' min='0' max='10' required className='p-3 border border-gray-300 rounded-lg' onChange={handleChange} value={formData.bathrooms}/>
+              <input type="number" id='bathrooms' min='0' max='10' required className='p-3 border border-gray-300 rounded-lg' onChange={handleChange} value={formData.bathrooms} />
               <p>Baños</p>
             </div>
             <div className='flex items-center gap-2'>
-              <input type="number" id='regularPrice' min='100000' max='50000000' required className='p-3 border border-gray-300 rounded-lg' onChange={handleChange} value={formData.regularPrice}/>
+              <input type="number" id='regularPrice' min='100000' max='50000000' required className='p-3 border border-gray-300 rounded-lg' onChange={handleChange} value={formData.regularPrice} />
               <div className='flex flex-col items-center'>
-                <p>Precio Hora</p>
-                <span className='text-xs'>($ / Hora)</span>
+                <p>Precio regular</p>
+                {formData.type === 'hour' && (
+                  <span className='text-xs'>(hora)</span>)}
               </div>
             </div>
-            {formData.offer && ( <div className='flex items-center gap-2'>
-              <input type="number" id='discountPrice' min='0' max='50000000' required className='p-3 border border-gray-300 rounded-lg' onChange={handleChange} value={formData.discountPrice}/>
+            {formData.offer && (<div className='flex items-center gap-2'>
+              <input type="number" id='discountPrice' min='0' max='50000000' required className='p-3 border border-gray-300 rounded-lg' onChange={handleChange} value={formData.discountPrice} />
               <div className='flex flex-col items-center'>
-                <p>Precio Día</p>
-                <span className='text-xs'>($ / Hora)</span>
+                <p>Precio con descuento</p>
+                {formData.type === 'hour' && (
+                  <span className='text-xs'>(día)</span>)}
               </div>
             </div>)}
-           
+
           </div>
         </div>
         <div className='flex flex-col flex-1 gap-4'>
@@ -194,15 +196,15 @@ setFormData({
             <input onChange={(e) => setfiles(e.target.files)} className='p-3 border border-gray-300 rounded w-full' type="file" id='images' accept='image/*' multiple />
             <button type='button' disabled={uploading} onClick={handleImageSubmit} className='p-3 text-green-700 border border-green-700 rounded uppercase hover:shadow-lg disabled:opacity-80'>{uploading ? 'Cargando...' : 'Cargar'}</button>
           </div>
-        <p className='text-red-700 text-sm'>{imageUloadError && imageUloadError}</p>
-        {
-          formData.imageUrls.length > 0 && formData.imageUrls.map((url, index) => (
-            <div key={url} className='flex justify-between p-4 border items-center'>
-              <img src={url} alt="Lista de imágenes" className='w-20 h-20 object-contain rounded-lg' />
-              <button type='button' onClick={()=>handleRemoveImage(index)} className='p-3 text-red-700 rounded-lg uppercase hover:opacity-60'>Borrar</button>
-            </div>
-          ))
-        }
+          <p className='text-red-700 text-sm'>{imageUloadError && imageUloadError}</p>
+          {
+            formData.imageUrls.length > 0 && formData.imageUrls.map((url, index) => (
+              <div key={url} className='flex justify-between p-4 border items-center'>
+                <img src={url} alt="Lista de imágenes" className='w-20 h-20 object-contain rounded-lg' />
+                <button type='button' onClick={() => handleRemoveImage(index)} className='p-3 text-red-700 rounded-lg uppercase hover:opacity-60'>Borrar</button>
+              </div>
+            ))
+          }
           <button disabled={loading || uploading} className='p-3 bg-blue-900 text-white rounded-lg uppercase hover:opacity-80 disabled:opacity-50'>{loading ? 'Creando...' : 'Crear salón'}</button>
           {error && <p className='text-red-700 text-sm'>{error}</p>}
         </div>
