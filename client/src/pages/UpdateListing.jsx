@@ -6,7 +6,7 @@ import { app } from '../firebase';
 
 export default function CreateListing() {
     const { currentUser } = useSelector(state => state.user);
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     const params = useParams();
     const [files, setfiles] = useState([]);
     const [formData, setFormData] = useState({
