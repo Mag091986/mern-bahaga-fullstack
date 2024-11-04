@@ -23,9 +23,9 @@ export const updateUser = async (req, res, next) => {
                 password: req.body.password,
                 avatar: req.body.avatar,
             }
-        }, {new: true})
+        }, { new: true })
 
-        const {password, ...rest} = updateUser._doc
+        const { password, ...rest } = updateUser._doc
 
         res.status(200).json(rest);
 
@@ -35,18 +35,18 @@ export const updateUser = async (req, res, next) => {
 };
 
 export const deleteUser = async (req, res, next) => {
-    if(req.user.id !== req.params.id) return next(errorHandler(401, '¡Solamente puede borrar su cuenta!'))
-        try {
-            await User.findByIdAndDelete(req.params.id);
-            res.clearCookie('access_token');
-            res.status(200).json('Cuenta Borrada');
-        } catch (error) {
-           next(error) 
-        }
+    if (req.user.id !== req.params.id) return next(errorHandler(401, '¡Solamente puede borrar su cuenta!'))
+    try {
+        await User.findByIdAndDelete(req.params.id);
+        res.clearCookie('access_token');
+        res.status(200).json('Cuenta Borrada');
+    } catch (error) {
+        next(error)
+    }
 };
 
 export const getUserListings = async (req, res, next) => {
-    if(req.user.id === req.params.id){
+    if (req.user.id === req.params.id) {
         try {
             const listing = await Listing.find({ userRef: req.params.id });
             res.status(200).json(listing);
@@ -54,8 +54,22 @@ export const getUserListings = async (req, res, next) => {
             next(error)
         }
 
-    }else{
+    } else {
         return next(errorHandler(401, 'Solamente puedes ver tus propias salones'));
     }
 
 }
+
+export const getUser = async (req, res, next) => {
+    try {
+        const user = await User.findById(req.params.id);
+
+        if (!user) return next(errorHandler(404, '¡Usuario no encontrado!'));
+
+        const { password: pass, ...rest } = user._doc;
+
+        res.status(200).json(rest);
+    } catch (error) {
+        next(error);
+    }
+};

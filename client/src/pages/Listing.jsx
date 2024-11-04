@@ -6,6 +6,7 @@ import SwiperCore from 'swiper';
 import 'swiper/css/bundle';
 import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import Contact from '../components/Contact';
 
 
 export default function Listing() {
@@ -125,7 +126,7 @@ export default function Listing() {
                         </ul>
                         {currentUser && listing.userRef !== currentUser._id && !contact && (
                             <button
-                                onClick={() => setContact(true)}
+                                onClick={()=>setContact(true)}
                                 className='bg-blue-900 text-white rounded-lg uppercase hover:opacity-95 p-3'
                             >
                                 Contactar Asesor
