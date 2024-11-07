@@ -1,15 +1,16 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import ListingItem from '../components/ListingItem';
+// import ListingItem from '../components/ListingItem';
 
 export default function Search() {
   const navigate = useNavigate();
   const [sidebardata, setSidebardata] = useState({
     searchTerm: '',
     type: 'all',
-    parking: false,
-    furnished: false,
     offer: false,
+    parking: false,
+    catering: false,
+    decoration: false,
     sort: 'created_at',
     order: 'desc',
   });
@@ -17,13 +18,15 @@ export default function Search() {
   const [loading, setLoading] = useState(false);
   const [listings, setListings] = useState([]);
   const [showMore, setShowMore] = useState(false);
+  console.log(listings);
 
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
     const searchTermFromUrl = urlParams.get('searchTerm');
     const typeFromUrl = urlParams.get('type');
     const parkingFromUrl = urlParams.get('parking');
-    const furnishedFromUrl = urlParams.get('furnished');
+    const decorationFromUrl = urlParams.get('decoration');
+    const cateringFromUrl = urlParams.get('catering');
     const offerFromUrl = urlParams.get('offer');
     const sortFromUrl = urlParams.get('sort');
     const orderFromUrl = urlParams.get('order');
@@ -32,7 +35,8 @@ export default function Search() {
       searchTermFromUrl ||
       typeFromUrl ||
       parkingFromUrl ||
-      furnishedFromUrl ||
+      decorationFromUrl ||
+      cateringFromUrl ||
       offerFromUrl ||
       sortFromUrl ||
       orderFromUrl
@@ -41,7 +45,8 @@ export default function Search() {
         searchTerm: searchTermFromUrl || '',
         type: typeFromUrl || 'all',
         parking: parkingFromUrl === 'true' ? true : false,
-        furnished: furnishedFromUrl === 'true' ? true : false,
+        decoration: decorationFromUrl === 'true' ? true : false,
+        catering: cateringFromUrl === 'true' ? true : false,
         offer: offerFromUrl === 'true' ? true : false,
         sort: sortFromUrl || 'created_at',
         order: orderFromUrl || 'desc',
@@ -69,8 +74,8 @@ export default function Search() {
   const handleChange = (e) => {
     if (
       e.target.id === 'all' ||
-      e.target.id === 'rent' ||
-      e.target.id === 'sale'
+      e.target.id === 'hour' ||
+      e.target.id === 'day'
     ) {
       setSidebardata({ ...sidebardata, type: e.target.id });
     }
@@ -81,7 +86,8 @@ export default function Search() {
 
     if (
       e.target.id === 'parking' ||
-      e.target.id === 'furnished' ||
+      e.target.id === 'decoration' ||
+      e.target.id === 'catering' ||
       e.target.id === 'offer'
     ) {
       setSidebardata({
@@ -106,7 +112,8 @@ export default function Search() {
     urlParams.set('searchTerm', sidebardata.searchTerm);
     urlParams.set('type', sidebardata.type);
     urlParams.set('parking', sidebardata.parking);
-    urlParams.set('furnished', sidebardata.furnished);
+    urlParams.set('decoration', sidebardata.decoration);
+    urlParams.set('catering', sidebardata.catering);
     urlParams.set('offer', sidebardata.offer);
     urlParams.set('sort', sidebardata.sort);
     urlParams.set('order', sidebardata.order);
@@ -154,7 +161,7 @@ export default function Search() {
                 onChange={handleChange}
                 checked={sidebardata.type === 'all'}
               />
-              <span>Tiempo</span>
+              <span>Todas</span>
             </div>
             <div className='flex gap-2'>
               <input
@@ -184,7 +191,7 @@ export default function Search() {
                 onChange={handleChange}
                 checked={sidebardata.offer}
               />
-              <span>Oferta</span>
+              <span>Descuento</span>
             </div>
           </div>
           <div className='flex gap-2 flex-wrap items-center'>
@@ -253,12 +260,12 @@ export default function Search() {
             </p>
           )}
 
-          {!loading &&
+{/*           {!loading &&
             listings &&
             listings.map((listing) => (
               <ListingItem key={listing._id} listing={listing} />
             ))}
-
+ */}
           {showMore && (
             <button
               onClick={onShowMoreClick}
