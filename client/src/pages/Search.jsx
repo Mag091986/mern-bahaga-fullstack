@@ -138,14 +138,14 @@ export default function Search() {
             <input
               type='text'
               id='searchTerm'
-              placeholder='Search...'
+              placeholder='Buscar...'
               className='border rounded-lg p-3 w-full'
               value={sidebardata.searchTerm}
               onChange={handleChange}
             />
           </div>
           <div className='flex gap-2 flex-wrap items-center'>
-            <label className='font-semibold'>Type:</label>
+            <label className='font-semibold'>Categorias:</label>
             <div className='flex gap-2'>
               <input
                 type='checkbox'
@@ -154,27 +154,27 @@ export default function Search() {
                 onChange={handleChange}
                 checked={sidebardata.type === 'all'}
               />
-              <span>Rent & Sale</span>
+              <span>Tiempo</span>
             </div>
             <div className='flex gap-2'>
               <input
                 type='checkbox'
-                id='rent'
+                id='hour'
                 className='w-5'
                 onChange={handleChange}
-                checked={sidebardata.type === 'rent'}
+                checked={sidebardata.type === 'hour'}
               />
-              <span>Rent</span>
+              <span>Horas</span>
             </div>
             <div className='flex gap-2'>
               <input
                 type='checkbox'
-                id='sale'
+                id='day'
                 className='w-5'
                 onChange={handleChange}
-                checked={sidebardata.type === 'sale'}
+                checked={sidebardata.type === 'day'}
               />
-              <span>Sale</span>
+              <span>Días</span>
             </div>
             <div className='flex gap-2'>
               <input
@@ -184,11 +184,11 @@ export default function Search() {
                 onChange={handleChange}
                 checked={sidebardata.offer}
               />
-              <span>Offer</span>
+              <span>Oferta</span>
             </div>
           </div>
           <div className='flex gap-2 flex-wrap items-center'>
-            <label className='font-semibold'>Amenities:</label>
+            <label className='font-semibold'>Servicios:</label>
             <div className='flex gap-2'>
               <input
                 type='checkbox'
@@ -197,31 +197,41 @@ export default function Search() {
                 onChange={handleChange}
                 checked={sidebardata.parking}
               />
-              <span>Parking</span>
+              <span>Parqueadero</span>
             </div>
             <div className='flex gap-2'>
               <input
                 type='checkbox'
-                id='furnished'
+                id='decoration'
                 className='w-5'
                 onChange={handleChange}
-                checked={sidebardata.furnished}
+                checked={sidebardata.decoration}
               />
-              <span>Furnished</span>
+              <span>Decoración</span>
+            </div>
+            <div className='flex gap-2'>
+              <input
+                type='checkbox'
+                id='catering'
+                className='w-5'
+                onChange={handleChange}
+                checked={sidebardata.catering}
+              />
+              <span>Cáterin</span>
             </div>
           </div>
           <div className='flex items-center gap-2'>
-            <label className='font-semibold'>Sort:</label>
+            <label className='font-semibold'>Ordenar por:</label>
             <select
               onChange={handleChange}
               defaultValue={'created_at_desc'}
               id='sort_order'
               className='border rounded-lg p-3'
             >
-              <option value='regularPrice_desc'>Price high to low</option>
-              <option value='regularPrice_asc'>Price low to hight</option>
-              <option value='createdAt_desc'>Latest</option>
-              <option value='createdAt_asc'>Oldest</option>
+              <option value='regularPrice_desc'>Precio más alto primero</option>
+              <option value='regularPrice_asc'>Precio más bajo primero</option>
+              <option value='createdAt_desc'>Recientes</option>
+              <option value='createdAt_asc'>Antiguos</option>
             </select>
           </div>
           <button className='bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95'>
