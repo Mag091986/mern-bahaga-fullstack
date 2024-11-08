@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-// import ListingItem from '../components/ListingItem';
+import ListingItem from '../components/ListingItem';
 
 export default function Search() {
   const navigate = useNavigate();
@@ -252,7 +252,7 @@ export default function Search() {
         </h1>
         <div className='p-7 flex flex-wrap gap-4'>
           {!loading && listings.length === 0 && (
-            <p className='text-xl text-slate-700'>¡Salón no econtrado!</p>
+            <p className='text-xl text-slate-700'>¡Salón no encontrado!</p>
           )}
           {loading && (
             <p className='text-xl text-slate-700 text-center w-full'>
@@ -260,12 +260,12 @@ export default function Search() {
             </p>
           )}
 
-{/*           {!loading &&
+          {!loading &&
             listings &&
             listings.map((listing) => (
               <ListingItem key={listing._id} listing={listing} />
             ))}
- */}
+
           {showMore && (
             <button
               onClick={onShowMoreClick}
