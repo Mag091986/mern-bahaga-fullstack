@@ -78,7 +78,7 @@ export default function Home() {
             <div className="font-semibold">
               <div className="font-bold my-3">
                 <h2 className="text-2xl font-bold text-gray-600">Salones en Descuento</h2>
-                <Link className="text-sm text-orange-600 hover:underline" to={'/search?offer=true'}>Ver más ofertas</Link>
+                <Link className="text-sm text-orange-600 hover:underline" to={'/search?offer=true'}>Ver más ofertas...</Link>
               </div>
               <div className="flex flex-wrap gap-4">
                 {
@@ -93,7 +93,7 @@ export default function Home() {
             <div className="font-semibold">
               <div className="font-bold my-3">
                 <h2 className="text-2xl font-bold text-gray-600">Salones por dias</h2>
-                <Link className="text-sm text-orange-600 hover:underline" to={'/search?type=day'}>Ver más salones</Link>
+                <Link className="text-sm text-orange-600 hover:underline" to={'/search?type=day'}>Ver más salones...</Link>
               </div>
               <div className="flex flex-wrap gap-4">
                 {
@@ -108,7 +108,7 @@ export default function Home() {
             <div className="font-semibold">
               <div className="font-bold my-3">
                 <h2 className="text-2xl font-bold text-gray-600">Alquiler por horas</h2>
-                <Link className="text-sm text-orange-600 hover:underline" to={'/search?type=hour'}>Ver más salones</Link>
+                <Link className="text-sm text-orange-600 hover:underline" to={'/search?type=hour'}>Ver más salones...</Link>
               </div>
               <div className="flex flex-wrap gap-4">
                 {

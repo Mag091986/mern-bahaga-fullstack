@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Footer from './components/Footer';
 import Header from './components/Header';
 import PrivateRoute from './components/PrivateRoute';
 import './index.css';
@@ -29,6 +30,7 @@ export default function App() {
           <Route path='/update-listing/:listingId' element={<UpdateListing />}></Route>
         </Route>
       </Routes>
+      <Footer/>
     </BrowserRouter>
   )
 }
