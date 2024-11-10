@@ -25,8 +25,8 @@ app.use(express.json());
 
 app.use(cookieParser());
 
-app.listen(3000, () => {
-    console.log('Servidor está corriendo en puerto 3000');
+app.listen(10000, () => {
+    console.log('Servidor está corriendo en puerto 10000');
 });
 
 app.use("/api/user", userRouter);
