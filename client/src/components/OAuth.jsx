@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { app } from '../firebase';
 import { signInSuccess } from '../redux/user/userSlice';
 
-export default function Oauth() {
+export default function OAuth() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const handleGoogleClick = async () => {
