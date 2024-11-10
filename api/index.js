@@ -2,6 +2,7 @@ import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 import express from 'express';
 import mongoose from "mongoose";
+import path from 'path';
 import authRouter from './routes/auth.route.js';
 import listingRouter from './routes/listing.route.js';
 import userRouter from './routes/user.route.js';
@@ -14,7 +15,9 @@ mongoose.connect(process.env.MONGO)
 })
 .catch((err) => {
     console.log(err);
-})
+});
+
+const __dirname = path.resolve();
 
 const app = express();
 
@@ -29,6 +32,12 @@ app.listen(3000, () => {
 app.use("/api/user", userRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/listing", listingRouter);
+
+app.use(express.static(path.join(__dirname, '/client/dist'))); 
+
+app.get('*', (req, res) => {
+    res.senFile(path.join(__dirname, 'client', 'dist', 'index.html'));
+})
 
 app.use((err, req, res, next) => {
 const statusCode = err.statusCode || 500;
